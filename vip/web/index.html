@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.7.2.js"></script>
+	</head>
+	<body>
+		<div id="div"></div>
+		<script>
+			$.ajax({
+//				url:'http://127.0.0.1:8088/news/',
+				url:'http://127.0.0.1:8088/news',
+				type:'post',
+				dataType:'jsonp',
+				jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+   				jsonpCallback:"success_jsonpCallback",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+				success:function(res){
+					
+					console.log(JSON.parse(res));
+//					for(var i in res)
+//					document.write(res[i].)
+				},
+				error:function(rr){
+//					console.log(rr.responseText);
+				}
+			})
+		</script>
+	</body>
+</html>
