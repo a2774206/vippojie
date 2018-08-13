@@ -2,9 +2,7 @@
   <div class="item">
     <!-- 视频破解 -->
 		<iframe frameborder="no" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" width="100%" height="500px" border="0" :src="msg" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
-		
-	
-  </div>
+ </div>
 </template>
 
 <script>
@@ -16,7 +14,12 @@ export default {
     }
   },
 	created(){
-	this.msg = 'https://jiexi.071811.cc/jx.php?url='+this.$route.query.url 
+		//解析地址规则:"http://v.qq.com/x/cover/639agzdh10yu2q2/v0026oj49rc.html"
+		//源地址：http://v.qq.com/x/cover/639agzdh10yu2q2.html?vid=v0026oj49rc
+		let str = encodeURI(this.$route.query.url);
+		let v = str.split('?');
+		let arr = v[0].slice(0,v[0].lastIndexOf('.')) +'/' + v[1].slice(v[1].indexOf('=')+1) + '.html';
+		this.msg = 'https://jiexi.071811.cc/jx.php?url='+ arr;
 	}
 }
 </script>

@@ -20,7 +20,7 @@
 									<!-- 	<a v-bind:href="item.url" 
 									:key="i" @click="saveLocal(item.title)">
 										</a> -->
-										<router-link :to="{path:'/item',query: {url: item.url}}" :key="i" @click="saveLocal(item.title)">{{item.title}}</router-link>
+										<router-link :to="{path:'/item',query: {url: encodeURI(item.url)}}" :key="i" :data="item.url" @click="saveLocal(item.title)">{{item.title}}</router-link>
 									</li>
 									<!-- <iframe :src="msg.world[0].url"></iframe> -->
 						
@@ -66,13 +66,14 @@ export default {
 			/*显示加载*/
 			this.ajax = true;
 			/*获取数据*/
+			
 			this.axios({
 				method:'post',
 				url:'vip/index.php',
 				headers:{
 					 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				},
-				data:'name='+this.userSelect+'&videoUrl='+this.userUrl
+				data:'name='+this.userSelect+'&videoUrl='+ encodeURI(this.userUrl)
 				
 			}).then(res=>{
 				/*保存历史*/
@@ -81,6 +82,7 @@ export default {
 				this.msg = res.data;
 				this.vName = res.data.world.vname;
 				this.saveLocal();
+			
 				console.log(this.vName)
 				console.log(this.msg)
 			})
